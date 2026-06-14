@@ -216,7 +216,7 @@ function showNotice(msg) {
 function loadData() {
   document.getElementById('tbody').innerHTML = '<tr><td colspan="8" class="empty">Carregando...</td></tr>';
   document.getElementById('notice').style.display = 'none';
-  api('formularios?order=created_at.desc&limit=1000&select=*,assinatura')
+  api('formularios?order=created_at.desc&limit=1000')
   .then(function(r) {
     if (!r.ok) return r.text().then(function(t) { throw new Error(t); });
     return r.json();
@@ -324,12 +324,16 @@ function openEdit(id) {
    'rest_alim','desc_alim','convenio','nome_convenio','aut_med','aut_viagem','transporte','obs'
   ].forEach(function(f) { var el = document.getElementById('m_' + f); if (el) el.value = r[f] || ''; });
   var sigImg = document.getElementById('m_assinatura');
-  if (r.assinatura) {
+  if (r.assinatura && r.assinatura.length > 0) {
     sigImg.src = r.assinatura;
+    sigImg.alt = 'Assinatura do responsavel';
     sigImg.style.display = 'block';
+    sigImg.style.maxHeight = '120px';
+    sigImg.style.width = 'auto';
   } else {
     sigImg.src = '';
-    sigImg.style.display = 'none';
+    sigImg.alt = 'Sem assinatura registrada';
+    sigImg.style.display = 'block';
   }
   document.getElementById('ov').classList.add('open');
   document.getElementById('sres').className = 'sres';
