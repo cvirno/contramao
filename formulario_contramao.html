@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contramão – Autorização Pulse Camp 2025</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#f4f6f9;padding-bottom:60px}
+.hbanner{background:#1a1a1a;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px 22px;text-align:center}
+.hbanner .logo{font-size:42px;font-weight:800;color:#fff;letter-spacing:-2px;line-height:1}
+.hbanner .logo span{color:#C0392B}
+.hbanner .tag{display:inline-block;background:#C0392B;color:#fff;font-size:11px;font-weight:700;letter-spacing:1px;padding:4px 12px;border-radius:20px;margin-top:10px;text-transform:uppercase}
+.hsubtitle{background:#222;padding:14px 20px 16px;text-align:center}
+.hsubtitle h1{font-size:15px;color:#ddd;font-weight:500;line-height:1.5;max-width:600px;margin:0 auto}
+.hsubtitle p{font-size:12px;color:#666;margin-top:6px}
+.wrap{max-width:680px;margin:0 auto;padding:0 14px}
+.card{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-top:14px;overflow:hidden}
+.ct{background:#1a1a1a;color:#fff;padding:12px 18px;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.ct-icon{font-size:14px}
+.cb{padding:18px}
+.fg{margin-bottom:16px}
+.fg:last-child{margin-bottom:0}
+.lbl{display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:5px;letter-spacing:.2px}
+.num{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;background:#C0392B;color:#fff;border-radius:50%;font-size:9px;font-weight:700;margin-right:5px;flex-shrink:0;vertical-align:middle}
+input[type=text],input[type=email],input[type=tel],textarea{width:100%;padding:10px 13px;border:1.5px solid #e8e8e8;border-radius:8px;font-size:14px;color:#1a1a1a;background:#fff;font-family:inherit;outline:none;transition:all .2s}
+input:focus,textarea:focus{border-color:#C0392B;box-shadow:0 0 0 3px rgba(192,57,43,.08)}
+textarea{resize:vertical;min-height:72px}
+.rg{display:flex;flex-direction:column;gap:8px}
+.ro{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1.5px solid #e8e8e8;border-radius:8px;cursor:pointer;font-size:13px;color:#444;transition:all .15s;user-select:none;line-height:1.4}
+.ro:hover{border-color:#C0392B;background:#fdf5f4}
+.ro.sel{border-color:#C0392B;background:#fdf5f4;font-weight:600;color:#C0392B}
+.ro input[type=radio]{accent-color:#C0392B;flex-shrink:0;margin-top:2px;width:16px;height:16px;cursor:pointer}
+.cond{display:none;margin-top:10px;padding:12px 14px;background:#fafafa;border-radius:8px;border-left:3px solid #C0392B}
+.cond.show{display:block}
+.cond .lbl{margin-bottom:5px}
+.err{display:none;font-size:11px;color:#C0392B;margin-top:5px;font-weight:600}
+.invalid input,.invalid textarea{border-color:#C0392B!important}
+.invalid .ro{border-color:#f5c0b8}
+.invalid .sw{border-color:#C0392B!important}
+.invalid .err{display:block}
+/* signature */
+.sw{border:2px dashed #ddd;border-radius:10px;background:#fafafa;position:relative;overflow:hidden}
+.sw canvas{display:block;width:100%;height:160px;touch-action:none;cursor:crosshair}
+.sph{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:13px;color:#bbb;pointer-events:none;text-align:center;line-height:1.7}
+.sbar{display:flex;align-items:center;gap:8px;margin-top:8px}
+.bclr{padding:6px 14px;border:1.5px solid #e0e0e0;border-radius:6px;background:#fff;color:#888;font-size:12px;cursor:pointer;font-family:inherit;font-weight:500;transition:all .2s}
+.bclr:hover{border-color:#C0392B;color:#C0392B}
+.sst{font-size:12px;color:#aaa;margin-left:auto}
+/* submit */
+.submit-card{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-top:14px;padding:20px 18px}
+.bsub{width:100%;padding:15px;background:#C0392B;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s;letter-spacing:.3px}
+.bsub:hover:not([disabled]){background:#a93226}
+.bsub[disabled]{background:#ccc;cursor:not-allowed}
+.snote{font-size:12px;text-align:center;margin-top:8px;min-height:16px;font-weight:500}
+/* success */
+.succ{display:none;background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-top:14px;padding:50px 20px;text-align:center}
+.succ.show{display:block}
+.succ-ico{width:64px;height:64px;background:#eafaf1;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:28px}
+.succ h2{font-size:20px;font-weight:700;color:#1a7a4a;margin-bottom:8px}
+.succ p{font-size:13px;color:#888;line-height:1.7;max-width:320px;margin:0 auto}
+.bnew{margin-top:20px;padding:11px 26px;background:#C0392B;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+/* grid para 2 colunas em telas maiores */
+.fg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:500px){.fg-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="hbanner">
+  <div class="logo">CONTRA<span>MÃO</span></div>
+  <div class="tag">Pulse Camp Adolescentes 2025</div>
+</div>
+<div class="hsubtitle">
+  <h1>Termo de Autorização para Participação, Dados de Saúde e Transporte — 13 a 15 Anos</h1>
+  <p>Preencha com atenção. Todos os campos marcados com * são obrigatórios.</p>
+</div>
+
+<div class="wrap">
+<div id="mainForm">
+
+<div class="card">
+  <div class="ct"><span class="ct-icon">👤</span> Dados do Adolescente</div>
+  <div class="cb">
+    <div class="fg" id="fg1">
+      <label class="lbl"><span class="num">1</span>Nome Completo do Adolescente *</label>
+      <input type="text" id="f1" placeholder="Nome completo">
+      <div class="err">Campo obrigatório.</div>
+    </div>
+    <div class="fg-grid">
+      <div class="fg" id="fg2">
+        <label class="lbl"><span class="num">2</span>CPF *</label>
+        <input type="text" id="f2" maxlength="14" placeholder="000.000.000-00">
+        <div class="err">Campo obrigatório.</div>
+      </div>
+      <div class="fg" id="fg3">
+        <label class="lbl"><span class="num">3</span>RG *</label>
+        <input type="text" id="f3" placeholder="0000000-0">
+        <div class="err">Campo obrigatório.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="ct"><span class="ct-icon">👨‍👩‍👧</span> Dados do Responsável</div>
+  <div class="cb">
+    <div class="fg" id="fg4">
+      <label class="lbl"><span class="num">4</span>Nome do Pai, Mãe ou Responsável *</label>
+      <input type="text" id="f4" placeholder="Nome completo">
+      <div class="err">Campo obrigatório.</div>
+    </div>
+    <div class="fg-grid">
+      <div class="fg" id="fg5">
+        <label class="lbl"><span class="num">5</span>CPF do Responsável *</label>
+        <input type="text" id="f5" maxlength="14" placeholder="000.000.000-00">
+        <div class="err">Campo obrigatório.</div>
+      </div>
+      <div class="fg" id="fg8">
+        <label class="lbl"><span class="num">8</span>E-mail *</label>
+        <input type="email" id="f8" placeholder="email@exemplo.com">
+        <div class="err">Campo obrigatório.</div>
+      </div>
+    </div>
+    <div class="fg-grid">
+      <div class="fg" id="fg6">
+        <label class="lbl"><span class="num">6</span>Telefone Principal *</label>
+        <input type="tel" id="f6" placeholder="(XX) XXXXX-XXXX">
+        <div class="err">Campo obrigatório.</div>
+      </div>
+      <div class="fg" id="fg7">
+        <label class="lbl"><span class="num">7</span>Telefone Secundário *</label>
+        <input type="tel" id="f7" placeholder="(XX) XXXXX-XXXX">
+        <div class="err">Campo obrigatório.</div>
+      </div>
+    </div>
+    <div class="fg" id="fg9">
+      <label class="lbl"><span class="num">9</span>Declaro que sou o próprio responsável pelo envio *</label>
+      <input type="text" id="f9" placeholder='Digite: Sim, declaro'>
+      <div class="err">Campo obrigatório.</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="ct"><span class="ct-icon">🏥</span> Dados de Saúde do Adolescente</div>
+  <div class="cb">
+
+    <div class="fg" id="fg10">
+      <label class="lbl"><span class="num">10</span>O adolescente possui algum problema de saúde? *</label>
+      <div class="rg">
+        <label class="ro" onclick="pick(this,'r10','Sim');show('c11',true)"><input type="radio" name="r10" value="Sim"> Sim</label>
+        <label class="ro" onclick="pick(this,'r10','Não');show('c11',false)"><input type="radio" name="r10" value="Não"> Não</label>
+      </div>
+      <div class="cond" id="c11"><label class="lbl"><span class="num">11</span>Descreva o problema:</label><textarea id="f11" placeholder="Descreva com detalhes..."></textarea></div>
+      <div class="err">Selecione uma opção.</div>
+    </div>
+
+    <div class="fg" id="fg12">
+      <label class="lbl"><span class="num">12</span>Faz uso contínuo de medicamento? *</label>
+      <div class="rg">
+        <label class="ro" onclick="pick(this,'r12','Sim');show('c13',true)"><input type="radio" name="r12" value="Sim"> Sim</label>
+        <label class="ro" onclick="pick(this,'r12','Não');show('c13',false)"><input type="radio" name="r12" value="Não"> Não</label>
+      </div>
+      <div class="cond" id="c13"><label class="lbl"><span class="num">13</span>Medicamento, dosagem e horário:</label><textarea id="f13" placeholder="Ex: Ritalina 10mg, 1 comprimido às 7h..."></textarea></div>
+      <div class="err">Selecione uma opção.</div>
+    </div>
+
+    <div class="fg" id="fg14">
+      <label class="lbl"><span class="num">14</span>Faz algum tratamento de saúde? *</label>
+      <div class="rg">
+        <label class="ro" onclick="pick(this,'r14','Sim');show('c15',true)"><input type="radio" name="r14" value="Sim"> Sim</label>
+        <label class="ro" onclick="pick(this,'r14','Não');show('c15',false)"><input type="radio" name="r14" value="Não"> Não</label>
+      </div>
+      <div class="cond" id="c15"><label class="lbl"><span class="num">15</span>Descreva o tratamento:</label><textarea id="f15" placeholder="Descreva com detalhes..."></textarea></div>
+      <div class="err">Selecione uma opção.</div>
+    </div>
+
+    <div class="fg" id="fg16">
+      <label class="lbl"><span class="num">16</span>Possui restrição para praticar esporte? *</label>
+      <div class="rg">
+        <label class="ro" onclick="pick(this,'r16','Sim');show('c17',true)"><input type="radio" name="r16" value="Sim"> Sim</label>
+        <label class="ro" onclick="pick(this,'r16','Não');show('c17',false)"><input type="radio" name="r16" value="Não"> Não</label>
+      </div>
+      <div class="cond" id="c17"><label class="lbl"><span class="num">17</span>Descreva a restrição:</label><textarea id="f17" placeholder="Descreva a restrição..."></textarea></div>
+      <div class="err">Selecione uma opção.</div>
+    </div>
+
+    <div class="fg" id="fg18">
+      <label class="lbl"><span class="num">18</span>Possui restrição alimentar? *</label>
+      <div class="rg">
+        <label class="ro" onclick="pick(this,'r18','Sim');show('c19',true)"><input type="radio" name="r18" value="Sim"> Sim</label>
+        <label class="ro" onclick="pick(this,'r18','Não');show('c19',false)"><input type="radio" name="r18" value="Não"> Não</label>
+      </div>
+      <div class="cond" id="c19"><label class="lbl"><span class="num">19</span>Descreva a restrição alimentar:</label><textarea id="f19" placeholder="Ex: sem glúten, alergia a amendoim..."></textarea></div>
+      <div class="err">Selecione uma opção.</div>
+    </div>
+
+    <div class="fg" id="fg20">
+      <label class="lbl"><span class="num">20</span>Possui algum tipo de alergia? *</label>
+      <div class="rg">
+        <label class="ro" onclick="pick(this,'r20','Sim');show('c21',true)"><input type="radio" name="r20" value="Sim"> Sim</label>
+        <label class="ro" onclick="pick(this,'r20','Não');show('c21',false)"><input type="radio" name="r20" value="Não"> Não</label>
+      </div>
+      <div class="cond" id="c21"><label class="lbl"><span class="num">21</span>Descreva as alergias:</label><textarea id="f21" placeholder="Medicamentos, insetos, alimentos..."></textarea></div>
+      <div class="err">Selecione uma opção.</div>
+    </div>
+
+    <div class="fg" id="fg22">
+      <label class="lbl"><span class="num">22</span>Autoriza ser medicado em caso de necessidade? (Dores, febre, vômito) *</label>
+      <div class="rg">
+        <label class="ro" onclick="pick(this,'r22','Sim')"><input type="radio" name="r22" value="Sim"> Sim, autorizo</label>
+        <label class="ro" onclick="pick(this,'r22','Não')"><input type="radio" name="r22" value="Não"> Não autorizo</label>
+      </div>
+      <div class="err">Selecione uma opção.</div>
+    </div>
+
+    <div class="fg" id="fg23">
+      <label class="lbl"><span class="num">23</span>Possui convênio médico (plano de saúde)? *</label>
+      <div class="rg">
+        <label class="ro" onclick="pick(this,'r23','Sim');show('c24',true)"><input type="radio" name="r23" value="Sim"> Sim <span style="font-size:11px;color:#aaa;font-weight:400">(necessário portar carteirinha)</span></label>
+        <label class="ro" onclick="pick(this,'r23','Não');show('c24',false)"><input type="radio" name="r23" value="Não"> Não</label>
+      </div>
+      <div class="cond" id="c24"><label class="lbl"><span class="num">24</span>Nome do convênio:</label><input type="text" id="f24" placeholder="Ex: Unimed, Amil, SulAmérica..."></div>
+      <div class="err">Selecione uma opção.</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="card">
+  <div class="ct"><span class="ct-icon">🚌</span> Autorização e Transporte</div>
+  <div class="cb">
+    <div class="fg" id="fg25">
+      <label class="lbl"><span class="num">25</span>Autorização de viagem *</label>
+      <p style="font-size:12px;color:#888;margin-bottom:10px;line-height:1.6;background:#f9f9f9;padding:10px 12px;border-radius:8px;border-left:3px solid #C0392B">Autorizo o adolescente a participar do Pulse Camp 2025 no Hotel Batista de Sumaré, de 24 a 27 de julho de 2025.</p>
+      <div class="rg">
+        <label class="ro" onclick="pick(this,'r25','Sim')"><input type="radio" name="r25" value="Sim"> ✅ Sim, autorizo a participação</label>
+        <label class="ro" onclick="pick(this,'r25','Não')"><input type="radio" name="r25" value="Não"> ❌ Não autorizo</label>
+      </div>
+      <div class="err">Selecione uma opção.</div>
+    </div>
+    <div class="fg" id="fg26">
+      <label class="lbl"><span class="num">26</span>Transporte para o acampamento *</label>
+      <div class="rg">
+        <label class="ro" onclick="pick(this,'r26','Próprio')"><input type="radio" name="r26" value="Próprio"> 🚗 Transporte Próprio para Ida e Volta</label>
+        <label class="ro" onclick="pick(this,'r26','PULSE')"><input type="radio" name="r26" value="PULSE"> 🚌 Transporte do PULSE – Autorizo ir de ônibus</label>
+      </div>
+      <div class="err">Selecione uma opção.</div>
+    </div>
+    <div class="fg">
+      <label class="lbl"><span class="num">27</span>Observações</label>
+      <p style="font-size:11px;color:#aaa;margin-bottom:6px">Dúvidas? WhatsApp <strong style="color:#555">(19) 99980-5898</strong></p>
+      <textarea id="f27" placeholder="Deixe aqui qualquer observação adicional..."></textarea>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="ct"><span class="ct-icon">✍️</span> Assinatura do Responsável</div>
+  <div class="cb">
+    <p style="font-size:12px;color:#888;margin-bottom:12px;line-height:1.6">Ao assinar, confirmo que todas as informações são verdadeiras e estou ciente das condições de participação.</p>
+    <div class="fg" id="fg-sig">
+      <div class="sw" id="sigWrap">
+        <canvas id="sigCanvas"></canvas>
+        <div class="sph" id="sigPh">✍️ Assine aqui com o dedo ou mouse</div>
+      </div>
+      <div class="sbar">
+        <button type="button" class="bclr" onclick="clearSig()">Limpar assinatura</button>
+        <span class="sst" id="sigSt">Assinatura pendente</span>
+      </div>
+      <div class="err">Assine antes de enviar.</div>
+    </div>
+  </div>
+</div>
+
+<div class="submit-card">
+  <button class="bsub" id="btnEnviar" onclick="enviar()">Enviar Formulário</button>
+  <div class="snote" id="snote"></div>
+</div>
+
+</div>
+
+<div class="succ" id="succDiv">
+  <div class="succ-ico">✅</div>
+  <h2>Formulário enviado!</h2>
+  <p>Dados salvos com sucesso. A equipe PULSE já recebeu as informações.<br><br>Dúvidas? WhatsApp <strong>(19) 99980-5898</strong></p>
+  <button class="bnew" onclick="resetFrm()">Preencher para outro adolescente</button>
+</div>
+
+</div>
+
+<script>
+var SUPA_URL='https://jwqjiwizcslkexslamrl.supabase.co', SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3cWppd2l6Y3Nsa2V4c2xhbXJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE0MjE0NDksImV4cCI6MjA5Njk5NzQ0OX0.snj7_tGqTsembQu6eS-s24sz2s-SPIt1H8-w1EOPdEI';
+var hasSig=false,drawing=false,lx=0,ly=0;
+
+function pick(lbl,name,val){
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(r){r.closest('label').classList.remove('sel');});
+  lbl.classList.add('sel');
+}
+function show(id,v){document.getElementById(id).classList[v?'add':'remove']('show');}
+
+document.getElementById('f2').addEventListener('input',function(){
+  var v=this.value.replace(/\D/g,'').slice(0,11);
+  if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');
+  else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');
+  else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');
+  this.value=v;
+});
+document.getElementById('f5').addEventListener('input',function(){
+  var v=this.value.replace(/\D/g,'').slice(0,11);
+  if(v.length>9)v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,'$1.$2.$3-$4');
+  else if(v.length>6)v=v.replace(/(\d{3})(\d{3})(\d{1,3})/,'$1.$2.$3');
+  else if(v.length>3)v=v.replace(/(\d{3})(\d{1,3})/,'$1.$2');
+  this.value=v;
+});
+['f6','f7'].forEach(function(id){
+  document.getElementById(id).addEventListener('input',function(){
+    var v=this.value.replace(/\D/g,'').slice(0,11);
+    if(v.length>10)v=v.replace(/(\d{2})(\d{5})(\d{4})/,'($1) $2-$3');
+    else if(v.length>6)v=v.replace(/(\d{2})(\d{4,5})(\d{0,4})/,'($1) $2-$3');
+    else if(v.length>2)v=v.replace(/(\d{2})(\d{0,5})/,'($1) $2');
+    this.value=v;
+  });
+});
+
+var canvas=document.getElementById('sigCanvas'),ctx=canvas.getContext('2d');
+function initCanvas(){
+  var w=document.getElementById('sigWrap').offsetWidth,dpr=window.devicePixelRatio||1;
+  canvas.width=w*dpr;canvas.height=160*dpr;
+  canvas.style.width=w+'px';canvas.style.height='160px';
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.strokeStyle='#1a1a1a';ctx.lineWidth=2.5;ctx.lineCap='round';ctx.lineJoin='round';
+}
+initCanvas();
+window.addEventListener('resize',initCanvas);
+function xy(e){var r=canvas.getBoundingClientRect(),s=e.touches?e.touches[0]:e;return{x:s.clientX-r.left,y:s.clientY-r.top};}
+function sd(e){e.preventDefault();drawing=true;var p=xy(e);lx=p.x;ly=p.y;}
+function md(e){
+  e.preventDefault();if(!drawing)return;
+  var p=xy(e);ctx.beginPath();ctx.moveTo(lx,ly);ctx.lineTo(p.x,p.y);ctx.stroke();lx=p.x;ly=p.y;
+  if(!hasSig){hasSig=true;document.getElementById('sigPh').style.display='none';document.getElementById('sigSt').textContent='✔ Assinatura registrada';document.getElementById('sigSt').style.color='#1a7a4a';document.getElementById('sigWrap').style.borderColor='#1a7a4a';document.getElementById('fg-sig').classList.remove('invalid');}
+}
+function ed(e){if(e)e.preventDefault();drawing=false;}
+canvas.addEventListener('mousedown',sd);canvas.addEventListener('mousemove',md);canvas.addEventListener('mouseup',ed);canvas.addEventListener('mouseleave',ed);
+canvas.addEventListener('touchstart',sd,{passive:false});canvas.addEventListener('touchmove',md,{passive:false});canvas.addEventListener('touchend',ed,{passive:false});
+function clearSig(){ctx.clearRect(0,0,canvas.offsetWidth,canvas.offsetHeight);hasSig=false;document.getElementById('sigPh').style.display='';document.getElementById('sigSt').textContent='Assinatura pendente';document.getElementById('sigSt').style.color='';document.getElementById('sigWrap').style.borderColor='';}
+
+function fv(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+function rv(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?c.value:'';}
+function setNote(msg,cor){var el=document.getElementById('snote');el.textContent=msg;el.style.color=cor||'#888';}
+
+function validate(){
+  var ok=true;
+  function rT(fg,id){var g=document.getElementById(fg);if(!fv(id)){g.classList.add('invalid');ok=false;}else g.classList.remove('invalid');}
+  function rR(fg,n){var g=document.getElementById(fg);if(!rv(n)){g.classList.add('invalid');ok=false;}else g.classList.remove('invalid');}
+  rT('fg1','f1');rT('fg2','f2');rT('fg3','f3');
+  rT('fg4','f4');rT('fg5','f5');rT('fg6','f6');
+  rT('fg7','f7');rT('fg8','f8');rT('fg9','f9');
+  rR('fg10','r10');rR('fg12','r12');rR('fg14','r14');
+  rR('fg16','r16');rR('fg18','r18');rR('fg20','r20');
+  rR('fg22','r22');rR('fg23','r23');
+  rR('fg25','r25');rR('fg26','r26');
+  if(!hasSig){document.getElementById('fg-sig').classList.add('invalid');ok=false;}
+  return ok;
+}
+
+function enviar(){
+  var btn=document.getElementById('btnEnviar');
+  if(!validate()){
+    var first=document.querySelector('.invalid');
+    if(first)first.scrollIntoView({behavior:'smooth',block:'center'});
+    setNote('Corrija os campos destacados em vermelho.','#C0392B');
+    return;
+  }
+  btn.setAttribute('disabled','disabled');
+  btn.textContent='Enviando...';
+  setNote('Salvando dados...','#888');
+  var payload={
+    data_envio:new Date().toLocaleString('pt-BR'),
+    nome_adol:fv('f1'),cpf_adol:fv('f2'),rg_adol:fv('f3'),
+    nome_resp:fv('f4'),cpf_resp:fv('f5'),tel1:fv('f6'),
+    tel2:fv('f7'),email_resp:fv('f8'),declaracao:fv('f9'),
+    prob_saude:rv('r10'),desc_prob:fv('f11'),
+    medicamento:rv('r12'),desc_med:fv('f13'),
+    tratamento:rv('r14'),desc_trat:fv('f15'),
+    rest_esporte:rv('r16'),desc_esporte:fv('f17'),
+    rest_alim:rv('r18'),desc_alim:fv('f19'),
+    alergia:rv('r20'),desc_alergia:fv('f21'),
+    aut_med:rv('r22'),convenio:rv('r23'),nome_convenio:fv('f24'),
+    aut_viagem:rv('r25'),transporte:rv('r26'),obs:fv('f27'),
+    confirmado:'pendente'
+  };
+  fetch(SUPA_URL+'/rest/v1/formularios',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=minimal'},
+    body:JSON.stringify(payload)
+  })
+  .then(function(res){
+    if(res.ok||res.status===201){
+      document.getElementById('mainForm').style.display='none';
+      document.getElementById('succDiv').classList.add('show');
+      window.scrollTo({top:0,behavior:'smooth'});
+    } else {
+      res.text().then(function(t){
+        btn.removeAttribute('disabled');btn.textContent='Enviar Formulário';
+        setNote('Erro: '+t,'#C0392B');
+      });
+    }
+  })
+  .catch(function(e){
+    btn.removeAttribute('disabled');btn.textContent='Enviar Formulário';
+    setNote('Erro de conexão: '+e.message,'#C0392B');
+  });
+}
+
+function resetFrm(){
+  document.querySelectorAll('#mainForm input[type=text],#mainForm input[type=email],#mainForm input[type=tel],#mainForm textarea').forEach(function(e){e.value='';});
+  document.querySelectorAll('#mainForm input[type=radio]').forEach(function(e){e.checked=false;});
+  document.querySelectorAll('.ro').forEach(function(r){r.classList.remove('sel');});
+  document.querySelectorAll('.cond').forEach(function(c){c.classList.remove('show');});
+  document.querySelectorAll('[id^=fg]').forEach(function(g){g.classList.remove('invalid');});
+  setNote('','');
+  var btn=document.getElementById('btnEnviar');
+  btn.removeAttribute('disabled');btn.textContent='Enviar Formulário';
+  clearSig();
+  document.getElementById('mainForm').style.display='';
+  document.getElementById('succDiv').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
