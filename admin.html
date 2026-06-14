@@ -94,8 +94,9 @@ tr:hover td{background:#fafafa;cursor:pointer}
 </style>
 </head>
 <body>
+<div style="background:#C0392B;text-align:center;padding:6px;font-size:11px;color:#fff;font-weight:600;letter-spacing:.5px">Criado por Cesar Virno</div>
 <div class="topbar">
-  <div><span class="brand">CONTRA<em>MAO</em></span><span class="pill">Pulse Camp 2025</span></div>
+  <div><span class="brand">CONTRA<em>MAO</em></span><span class="pill">Pulse Camp Adolescentes 2026</span></div>
   <div class="top-right">
     <button class="btn" onclick="loadData()">Atualizar</button>
     <button class="btn red" onclick="exportXL()">Exportar Excel</button>
@@ -172,6 +173,9 @@ tr:hover td{background:#fafafa;cursor:pointer}
         <div class="fi"><label>Nome convenio</label><input type="text" id="m_nome_convenio"></div>
         </div><div class="fgrid one"><div class="fi"><label>Autoriza medicacao</label><input type="text" id="m_aut_med"></div></div>
       </div>
+      <div class="fsec"><div class="fsec-t">Assinatura</div>
+        <div class="fgrid one"><div class="fi"><label>Assinatura do Responsavel</label><img id="m_assinatura" style="width:100%;border:1px solid #eee;border-radius:6px;background:#fafafa;min-height:80px;object-fit:contain" src="" alt="Sem assinatura"></div></div>
+      </div>
       <div class="fsec"><div class="fsec-t">Viagem</div>
         <div class="fgrid"><div class="fi"><label>Autoriza viagem</label><input type="text" id="m_aut_viagem"></div><div class="fi"><label>Transporte</label><input type="text" id="m_transporte"></div></div>
         <div class="fgrid one"><div class="fi"><label>Observacoes</label><textarea id="m_obs"></textarea></div></div>
@@ -212,7 +216,7 @@ function showNotice(msg) {
 function loadData() {
   document.getElementById('tbody').innerHTML = '<tr><td colspan="8" class="empty">Carregando...</td></tr>';
   document.getElementById('notice').style.display = 'none';
-  api('formularios?order=created_at.desc&limit=1000')
+  api('formularios?order=created_at.desc&limit=1000&select=*,assinatura')
   .then(function(r) {
     if (!r.ok) return r.text().then(function(t) { throw new Error(t); });
     return r.json();
@@ -319,6 +323,14 @@ function openEdit(id) {
    'prob_saude','desc_prob','medicamento','desc_med','alergia','desc_alergia',
    'rest_alim','desc_alim','convenio','nome_convenio','aut_med','aut_viagem','transporte','obs'
   ].forEach(function(f) { var el = document.getElementById('m_' + f); if (el) el.value = r[f] || ''; });
+  var sigImg = document.getElementById('m_assinatura');
+  if (r.assinatura) {
+    sigImg.src = r.assinatura;
+    sigImg.style.display = 'block';
+  } else {
+    sigImg.src = '';
+    sigImg.style.display = 'none';
+  }
   document.getElementById('ov').classList.add('open');
   document.getElementById('sres').className = 'sres';
   document.getElementById('hsearch').value = '';

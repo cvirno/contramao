@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contramão – Autorização Pulse Camp 2025</title>
+<title>Contramão – Autorização Pulse Camp Adolescentes 2026</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -68,9 +68,10 @@ textarea{resize:vertical;min-height:72px}
 </head>
 <body>
 
+<div style="background:#C0392B;text-align:center;padding:6px;font-size:11px;color:#fff;font-weight:600;letter-spacing:.5px">Criado por Cesar Virno</div>
 <div class="hbanner">
   <div class="logo">CONTRA<span>MÃO</span></div>
-  <div class="tag">Pulse Camp Adolescentes 2025</div>
+  <div class="tag">Pulse Camp Adolescentes 2026</div>
 </div>
 <div class="hsubtitle">
   <h1>Termo de Autorização para Participação, Dados de Saúde e Transporte — 13 a 15 Anos</h1>
@@ -234,7 +235,7 @@ textarea{resize:vertical;min-height:72px}
   <div class="cb">
     <div class="fg" id="fg25">
       <label class="lbl"><span class="num">25</span>Autorização de viagem *</label>
-      <p style="font-size:12px;color:#888;margin-bottom:10px;line-height:1.6;background:#f9f9f9;padding:10px 12px;border-radius:8px;border-left:3px solid #C0392B">Autorizo o adolescente a participar do Pulse Camp 2025 no Hotel Batista de Sumaré, de 24 a 27 de julho de 2025.</p>
+      <p style="font-size:12px;color:#888;margin-bottom:10px;line-height:1.6;background:#f9f9f9;padding:10px 12px;border-radius:8px;border-left:3px solid #C0392B">Autorizo o adolescente a participar do Pulse Camp Adolescentes 2026 no Hotel Batista de Sumaré, de 24 a 27 de julho de 2026.</p>
       <div class="rg">
         <label class="ro" onclick="pick(this,'r25','Sim')"><input type="radio" name="r25" value="Sim"> ✅ Sim, autorizo a participação</label>
         <label class="ro" onclick="pick(this,'r25','Não')"><input type="radio" name="r25" value="Não"> ❌ Não autorizo</label>
@@ -390,7 +391,8 @@ function enviar(){
     alergia:rv('r20'),desc_alergia:fv('f21'),
     aut_med:rv('r22'),convenio:rv('r23'),nome_convenio:fv('f24'),
     aut_viagem:rv('r25'),transporte:rv('r26'),obs:fv('f27'),
-    confirmado:'pendente'
+    confirmado:'pendente',
+    assinatura:canvas.toDataURL('image/png')
   };
   fetch(SUPA_URL+'/rest/v1/formularios',{
     method:'POST',
