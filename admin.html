@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contramao - Painel Admin</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -205,6 +206,7 @@ tr:hover td{background:#fafafa;cursor:pointer}
     <button class="tbtn tbtn-outline" onclick="loadData()">&#8635; Atualizar</button>
     <button class="tbtn tbtn-outline" onclick="printLista()">&#128438; Imprimir Lista</button>
     <button class="tbtn tbtn-green" onclick="exportXL()">&#11015; Excel</button>
+    <button class="tbtn tbtn-outline" onclick="exportAssinaturas()">&#10000; Assinaturas (PNG)</button>
   </div>
 </div>
 
@@ -586,32 +588,89 @@ function printLista() {
 }
 
 // EXCEL
-function exportXL() {
+async function exportXL() {
   if (!allData.length) { alert('Nenhum dado.'); return; }
+  showNotice('Gerando Excel com assinaturas, aguarde...', 'ok');
+
   var heads = ['Status','Data Envio','Nome Adolescente','CPF','RG','Nome Responsavel','CPF Resp',
     'Tel Principal','Tel Secundario','Email','Declaracao','Problema Saude','Desc Saude',
     'Medicamento','Desc Med','Tratamento','Rest Esporte','Rest Alimentar','Desc Alim',
     'Alergia','Desc Alergia','Autoriza Med','Convenio','Nome Convenio',
-    'Autoriza Viagem','Transporte','Observacoes'];
-  var rows = allData.map(function(r) {
-    return [r.confirmado,r.data_envio,r.nome_adol,r.cpf_adol,r.rg_adol,r.nome_resp,r.cpf_resp,
+    'Autoriza Viagem','Transporte','Observacoes','Assinatura'];
+
+  var workbook = new ExcelJS.Workbook();
+  var sheet = workbook.addWorksheet('Formularios');
+
+  sheet.addRow(heads);
+  var headerRow = sheet.getRow(1);
+  headerRow.eachCell(function(cell) {
+    cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1A1A2E' } };
+    cell.alignment = { horizontal: 'center', vertical: 'middle' };
+  });
+  headerRow.height = 22;
+
+  heads.forEach(function(h, i) {
+    var col = sheet.getColumn(i + 1);
+    col.width = (i === heads.length - 1) ? 24 : 20;
+  });
+
+  allData.forEach(function(r, i) {
+    var rowIdx = i + 2;
+    var rowVals = [r.confirmado,r.data_envio,r.nome_adol,r.cpf_adol,r.rg_adol,r.nome_resp,r.cpf_resp,
       r.tel1,r.tel2,r.email_resp,r.declaracao,r.prob_saude,r.desc_prob,
       r.medicamento,r.desc_med,r.tratamento,r.rest_esporte,r.rest_alim,r.desc_alim,
       r.alergia,r.desc_alergia,r.aut_med,r.convenio,r.nome_convenio,
-      r.aut_viagem,r.transporte,r.obs];
+      r.aut_viagem,r.transporte,r.obs,''];
+    sheet.addRow(rowVals);
+    sheet.getRow(rowIdx).height = 70;
+
+    if (r.assinatura && r.assinatura.length > 100) {
+      var base64Data = r.assinatura.split(',')[1];
+      var imgId = workbook.addImage({ base64: r.assinatura, extension: 'png' });
+      sheet.addImage(imgId, {
+        tl: { col: heads.length - 1, row: rowIdx - 1 },
+        ext: { width: 150, height: 60 }
+      });
+    }
   });
-  var wb = XLSX.utils.book_new();
-  var ws = XLSX.utils.aoa_to_sheet([heads].concat(rows));
-  ws['!cols'] = heads.map(function(){ return {wch:20}; });
-  var range = XLSX.utils.decode_range(ws['!ref']);
-  for (var c = range.s.c; c <= range.e.c; c++) {
-    var cell = XLSX.utils.encode_cell({r:0,c:c});
-    if (!ws[cell]) continue;
-    ws[cell].s = {font:{bold:true,color:{rgb:'FFFFFF'}},fill:{fgColor:{rgb:'1a1a2e'}},alignment:{horizontal:'center'}};
-  }
-  XLSX.utils.book_append_sheet(wb, ws, 'Formularios');
+
+  sheet.eachRow(function(row, idx) {
+    if (idx === 1) return;
+    row.eachCell(function(cell) {
+      cell.alignment = { vertical: 'middle', wrapText: false };
+    });
+  });
+
+  var buffer = await workbook.xlsx.writeBuffer();
+  var blob = new Blob([buffer], { type: 'application/octet-stream' });
   var d = new Date().toLocaleDateString('pt-BR').split('/').join('-');
-  XLSX.writeFile(wb, 'Contramao_PulseCamp2026_' + d + '.xlsx');
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'Contramao_PulseCamp2026_' + d + '.xlsx';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showNotice('Excel gerado com sucesso!', 'ok');
+}
+
+function exportAssinaturas() {
+  var withSig = allData.filter(function(r) { return r.assinatura && r.assinatura.length > 100; });
+  if (!withSig.length) return;
+  withSig.forEach(function(r, i) {
+    setTimeout(function() {
+      var link = document.createElement('a');
+      link.href = r.assinatura;
+      var nome = (r.nome_adol || 'assinatura_' + i).replace(/[^a-zA-Z0-9]/g, '_');
+      link.download = 'Assinatura_' + nome + '.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }, i * 300);
+  });
+  showNotice(withSig.length + ' assinatura(s) sendo baixadas separadamente como imagens PNG...', 'ok');
 }
 
 setInterval(loadData, 60000);
