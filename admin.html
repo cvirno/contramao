@@ -600,7 +600,8 @@ async function exportXL() {
 
   var heads = ['Status','Data Envio','Nome Adolescente','CPF','RG','Nome Responsavel','CPF Resp',
     'Tel Principal','Tel Secundario','Email','Declaracao','Problema Saude','Desc Saude',
-    'Medicamento','Desc Med','Tratamento','Rest Esporte','Rest Alimentar','Desc Alim',
+    'Medicamento','Desc Medicamento','Tratamento','Desc Tratamento',
+    'Rest Esporte','Desc Rest Esporte','Rest Alimentar','Desc Alim',
     'Alergia','Desc Alergia','Autoriza Med','Convenio','Nome Convenio',
     'Autoriza Viagem','Transporte','Observacoes','Data Nascimento','Sexo','Assinatura'];
 
@@ -625,7 +626,8 @@ async function exportXL() {
     var rowIdx = i + 2;
     var rowVals = [r.confirmado,r.data_envio,r.nome_adol,r.cpf_adol,r.rg_adol,r.nome_resp,r.cpf_resp,
       r.tel1,r.tel2,r.email_resp,r.declaracao,r.prob_saude,r.desc_prob,
-      r.medicamento,r.desc_med,r.tratamento,r.rest_esporte,r.rest_alim,r.desc_alim,
+      r.medicamento,r.desc_med,r.tratamento,r.desc_trat,
+      r.rest_esporte,r.desc_esporte,r.rest_alim,r.desc_alim,
       r.alergia,r.desc_alergia,r.aut_med,r.convenio,r.nome_convenio,
       r.aut_viagem,r.transporte,r.obs,r.data_nascimento,r.sexo,''];
     sheet.addRow(rowVals);
